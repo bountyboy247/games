@@ -32,4 +32,25 @@ clock = pygame.time.Clock()
 #5 -Initialize variables
 
 #6-LoopForever
+while True:
+    #7 check for and handle events
+    for event in pygame.event.get():
+        #clicked the close button ? Quit the pygame
+        if event.type == pygame.QUIT:
+            pygame.quit()
+            sys.exit()
+    
+    #8 do any "per frame" actions
+
+    #9 clear the window
+
+    window.fill(BLACK)
+
+    #10 Draw all window elements
+
+    #11 update the window
+    pygame.display.update()
+    #12 
+    #show things down a bit
+    clock.tick(FRAMES_PER_SECOND)
 
