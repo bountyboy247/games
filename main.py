@@ -14,6 +14,7 @@ This project illustrates following in procedural way
 #import packages
 import pygame
 import sys
+import random
 
 #Define contants
 #Colors
@@ -26,6 +27,9 @@ WINDOW_WIDTH = 640
 WINDOW_HEIGHT = 480
 FRAMES_PER_SECOND = 30
 
+BALL_WIDTH_HEIGHT = 60
+MAX_WIDTH = WINDOW_WIDTH - BALL_WIDTH_HEIGHT
+MAX_HEIGHT = WINDOW_HEIGHT - BALL_WIDTH_HEIGHT
 #3 Initialize the world
 
 pygame.init()
@@ -34,12 +38,12 @@ clock = pygame.time.Clock()
 
 #4 -> Load assets: image(s), sound(s), etc.
 ballImage = pygame.image.load('images/ball.png')
-ballImageSmall = pygame.transform.scale(ballImage,(60,60))
+ballImageSmall = pygame.transform.scale(ballImage,(BALL_WIDTH_HEIGHT,BALL_WIDTH_HEIGHT))
 #5 -Initialize variables
-
+ballx = random.randrange(MAX_WIDTH)
+bally = random.randrange(MAX_HEIGHT)
+ballRect = pygame.Rect(ballx,bally,BALL_WIDTH_HEIGHT,BALL_WIDTH_HEIGHT)
 #6-LoopForever
-x = 100
-y = 200
 while True:
     #7 check for and handle events
     for event in pygame.event.get():
@@ -47,7 +51,12 @@ while True:
         if event.type == pygame.QUIT:
             pygame.quit()
             sys.exit()
-    
+        #see if user clicked
+        if event.type == pygame.MOUSEBUTTONUP:
+            if ballRect.collidepoint(event.pos):
+                ballx = random.randrange(MAX_WIDTH)
+                bally = random.randrange(MAX_HEIGHT)
+                ballRect = pygame.Rect(ballx,bally, BALL_WIDTH_HEIGHT, BALL_WIDTH_HEIGHT)
     #8 do any "per frame" actions
 
     #9 clear the window
@@ -55,7 +64,7 @@ while True:
     window.fill(WHITE)
 
     #10 Draw all window elements
-    window.blit(ballImageSmall,(x,y))
+    window.blit(ballImageSmall,(ballx,bally)) #bit block transfer, just means draw
     #11 update the window
     pygame.display.update()
     #12 
