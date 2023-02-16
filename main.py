@@ -16,7 +16,12 @@ import pygame
 import sys
 
 #Define contants
+#Colors
 BLACK = (0,0,0)
+RED = (255,0,0)
+GREEN = (0,255,0)
+WHITE = (255,255,255)
+
 WINDOW_WIDTH = 640
 WINDOW_HEIGHT = 480
 FRAMES_PER_SECOND = 30
@@ -28,10 +33,13 @@ window = pygame.display.set_mode((WINDOW_WIDTH,WINDOW_HEIGHT))
 clock = pygame.time.Clock()
 
 #4 -> Load assets: image(s), sound(s), etc.
-
+ballImage = pygame.image.load('images/ball.png')
+ballImageSmall = pygame.transform.scale(ballImage,(60,60))
 #5 -Initialize variables
 
 #6-LoopForever
+x = 100
+y = 200
 while True:
     #7 check for and handle events
     for event in pygame.event.get():
@@ -44,10 +52,10 @@ while True:
 
     #9 clear the window
 
-    window.fill(BLACK)
+    window.fill(WHITE)
 
     #10 Draw all window elements
-
+    window.blit(ballImageSmall,(x,y))
     #11 update the window
     pygame.display.update()
     #12 
