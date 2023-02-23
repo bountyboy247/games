@@ -34,6 +34,7 @@ TARGET_X = 400
 TARGET_Y = 320
 TARGET_WIDTH_HEIGHT = 100
 N_PIXELS_TO_MOVE = 3
+N_PIXELS_PER_FRAME = 3
 #3 Initialize the world
 
 pygame.init()
@@ -48,6 +49,8 @@ targetImageSmall = pygame.transform.scale(targetImage,(TARGET_WIDTH_HEIGHT,TARGE
 #5 -Initialize variables
 ballx = random.randrange(MAX_WIDTH)
 bally = random.randrange(MAX_HEIGHT)
+xSpeed = N_PIXELS_PER_FRAME
+ySpeed = N_PIXELS_PER_FRAME
 #ballRect = pygame.Rect(ballx,bally,BALL_WIDTH_HEIGHT,BALL_WIDTH_HEIGHT)
 targetRect = pygame.Rect(TARGET_X,TARGET_Y, TARGET_WIDTH_HEIGHT,TARGET_WIDTH_HEIGHT)
 #6-LoopForever
@@ -59,20 +62,13 @@ while True:
             pygame.quit()
             sys.exit()
     #8 do any "per frame" actions
-    keyPressedTuple = pygame.key.get_pressed()
+    if ballx < 0 or ballx >= MAX_WIDTH:
+        xSpeed = -xSpeed
+    if bally <0 or bally >= MAX_HEIGHT:
+        ySpeed = -ySpeed
 
-    if keyPressedTuple[pygame.K_LEFT]: #moving left
-        ballx -= N_PIXELS_TO_MOVE
-    if keyPressedTuple[pygame.K_RIGHT]: 
-        ballx += N_PIXELS_TO_MOVE
-    if keyPressedTuple[pygame.K_UP]:
-        bally -= N_PIXELS_TO_MOVE
-    if keyPressedTuple[pygame.K_DOWN]:
-        bally += N_PIXELS_TO_MOVE
-    ballRect = pygame.Rect(ballx,bally, BALL_WIDTH_HEIGHT,BALL_WIDTH_HEIGHT)
-    
-    if ballRect.colliderect(targetRect):
-        print('Ball is touching the target')
+    ballx = ballx + xSpeed
+    bally = bally + ySpeed    
     #9 clear the window
 
     window.fill(WHITE)
