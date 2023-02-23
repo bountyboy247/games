@@ -32,7 +32,7 @@ MAX_WIDTH = WINDOW_WIDTH - BALL_WIDTH_HEIGHT
 MAX_HEIGHT = WINDOW_HEIGHT - BALL_WIDTH_HEIGHT
 TARGET_X = 400
 TARGET_Y = 320
-TARGET_WIDTH_HEIGHT = 120
+TARGET_WIDTH_HEIGHT = 100
 N_PIXELS_TO_MOVE = 3
 #3 Initialize the world
 
@@ -58,17 +58,17 @@ while True:
         if event.type == pygame.QUIT:
             pygame.quit()
             sys.exit()
-        #see if user clicked
-        elif event.type == pygame.KEYDOWN:
-            if event.key == pygame.K_LEFT:
-                ballx -= N_PIXELS_TO_MOVE
-            elif event.key == pygame.K_RIGHT:
-                ballx += N_PIXELS_TO_MOVE
-            elif event.key == pygame.K_UP:
-                bally -= N_PIXELS_TO_MOVE
-            elif event.key == pygame.K_DOWN:
-                bally += N_PIXELS_TO_MOVE
     #8 do any "per frame" actions
+    keyPressedTuple = pygame.key.get_pressed()
+
+    if keyPressedTuple[pygame.K_LEFT]: #moving left
+        ballx -= N_PIXELS_TO_MOVE
+    if keyPressedTuple[pygame.K_RIGHT]: 
+        ballx += N_PIXELS_TO_MOVE
+    if keyPressedTuple[pygame.K_UP]:
+        bally -= N_PIXELS_TO_MOVE
+    if keyPressedTuple[pygame.K_DOWN]:
+        bally += N_PIXELS_TO_MOVE
     ballRect = pygame.Rect(ballx,bally, BALL_WIDTH_HEIGHT,BALL_WIDTH_HEIGHT)
     
     if ballRect.colliderect(targetRect):
