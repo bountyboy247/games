@@ -46,6 +46,7 @@ for i in range(0,N_BALLS):
 #ballRect = pygame.Rect(ballx,bally,BALL_WIDTH_HEIGHT,BALL_WIDTH_HEIGHT)
 #
 #6-LoopForever
+#
 while True:
     #7 check for and handle events
     for event in pygame.event.get():
