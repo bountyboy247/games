@@ -14,7 +14,7 @@ This project illustrates following in procedural way
 #import packages
 import pygame
 import sys
-import random
+from Ball import Ball
 
 #Define contants
 #Colors
@@ -22,19 +22,12 @@ BLACK = (0,0,0)
 RED = (255,0,0)
 GREEN = (0,255,0)
 WHITE = (255,255,255)
-
+N_BALLS = 5
 WINDOW_WIDTH = 640
 WINDOW_HEIGHT = 480
 FRAMES_PER_SECOND = 30
 
-BALL_WIDTH_HEIGHT = 60
-MAX_WIDTH = WINDOW_WIDTH - BALL_WIDTH_HEIGHT
-MAX_HEIGHT = WINDOW_HEIGHT - BALL_WIDTH_HEIGHT
-TARGET_X = 400
-TARGET_Y = 320
-TARGET_WIDTH_HEIGHT = 100
-N_PIXELS_TO_MOVE = 3
-N_PIXELS_PER_FRAME = 3
+
 #3 Initialize the world
 
 pygame.init()
@@ -42,17 +35,16 @@ window = pygame.display.set_mode((WINDOW_WIDTH,WINDOW_HEIGHT))
 clock = pygame.time.Clock()
 
 #4 -> Load assets: image(s), sound(s), etc.
-ballImage = pygame.image.load('images/ball.png')
-targetImage = pygame.image.load('images/target.png')
-ballImageSmall = pygame.transform.scale(ballImage,(BALL_WIDTH_HEIGHT,BALL_WIDTH_HEIGHT))
-targetImageSmall = pygame.transform.scale(targetImage,(TARGET_WIDTH_HEIGHT,TARGET_WIDTH_HEIGHT))
+#ballImageSmall = pygame.transform.scale(ballImage,(BALL_WIDTH_HEIGHT,BALL_WIDTH_HEIGHT))
 #5 -Initialize variables
-ballx = random.randrange(MAX_WIDTH)
-bally = random.randrange(MAX_HEIGHT)
-xSpeed = N_PIXELS_PER_FRAME
-ySpeed = N_PIXELS_PER_FRAME
+listOfBalls = []
+for i in range(0,N_BALLS):
+    listOfBalls.append(Ball(window,WINDOW_WIDTH,WINDOW_HEIGHT))
+# oBall = Ball(window, WINDOW_WIDTH, WINDOW_HEIGHT)
+# oBall2 = Ball(window,WINDOW_WIDTH,WINDOW_HEIGHT)
+# oBall3 = Ball(window,WINDOW_WIDTH,WINDOW_HEIGHT)
 #ballRect = pygame.Rect(ballx,bally,BALL_WIDTH_HEIGHT,BALL_WIDTH_HEIGHT)
-targetRect = pygame.Rect(TARGET_X,TARGET_Y, TARGET_WIDTH_HEIGHT,TARGET_WIDTH_HEIGHT)
+#
 #6-LoopForever
 while True:
     #7 check for and handle events
@@ -62,20 +54,21 @@ while True:
             pygame.quit()
             sys.exit()
     #8 do any "per frame" actions
-    if ballx < 0 or ballx >= MAX_WIDTH:
-        xSpeed = -xSpeed
-    if bally <0 or bally >= MAX_HEIGHT:
-        ySpeed = -ySpeed
-
-    ballx = ballx + xSpeed
-    bally = bally + ySpeed    
+    for i in range(0,N_BALLS):
+        listOfBalls[i].update()
+    # oBall.update()   
+    # oBall2.update()
+    # oBall3.update()
     #9 clear the window
 
     window.fill(WHITE)
 
     #10 Draw all window elements
-    window.blit(targetImageSmall,(TARGET_X,TARGET_Y))
-    window.blit(ballImageSmall,(ballx,bally)) #bit block transfer, just means draw
+    for i in range(0,N_BALLS):
+        listOfBalls[i].draw()
+    # oBall.draw()
+    # oBall2.draw()
+    # oBall3.draw()
     #11 update the window
     pygame.display.update()
     #12 
